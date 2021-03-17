@@ -37,6 +37,7 @@
   }
   a {
     text-decoration:none;
+    color: #222222;
   }
   .recommend-item img {
     width: 80px;
