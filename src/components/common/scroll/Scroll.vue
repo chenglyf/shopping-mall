@@ -36,14 +36,18 @@
 
       })
       //监听滚动位置
-      this.scroll.on('scroll',(position) => {
-       this.$emit('scroll',position)
-      })
+     if(this.probeType === 2 || this.probeType === 3 ) {
+       this.scroll.on('scroll',(position) => {
+         this.$emit('scroll',position)
+       })
+     }
       //监听上拉时间
-      this.scroll.on('pullingUp',()=> {
-        // console.log('上拉加载更多');
-        this.$emit('pullingUp')
-      })
+      if(this.pullUpLoad) {
+        this.scroll.on('pullingUp',()=> {
+          // console.log('上拉加载更多');
+          this.$emit('pullingUp')
+        })
+      }
 
     },
     methods: {
@@ -55,6 +59,10 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+        // console.log('---');
+      },
+      getScrollY() {
+        return this.scroll ? this.scroll.y : 0
       }
 
     }
