@@ -26,8 +26,7 @@
 
    </scroll>
     <back-top
-      @click.native="backClick"
-      v-show="isShowBackTop"/>
+      @click.native="backClick" v-show="isShowBackTop"/>
   </div>
 </template>
 
