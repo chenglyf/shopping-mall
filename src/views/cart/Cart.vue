@@ -6,6 +6,7 @@
       <!--    商品列表-->
       <cart-list/>
       <!--    底部汇总-->
+    <car-bottom-bar/>
 
   </div>
 </template>
@@ -13,13 +14,15 @@
 <script>
   import NavBar from "components/common/navbar/NavBar";
   import cartList from "./childConps/cartList";
+  import CarBottomBar from "./childConps/CarBottomBar";
 
 
 export default {
   name: "Cart",
   components: {
     NavBar,
-    cartList
+    cartList,
+    CarBottomBar
   },
   computed: {
     cartLength(state) {

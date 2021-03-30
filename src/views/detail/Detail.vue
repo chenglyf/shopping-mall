@@ -12,6 +12,7 @@
   </scroll>
    <detail-bottom-bar @addCart="addToCart"/>
    <back-top @click.native="backClick" v-show="isShowBackTop"/>
+   <toast :message="message" :show="show"/>
  </div>
 </template>
 
@@ -27,6 +28,7 @@
 
   import Scroll from "components/common/scroll/Scroll";
   import GoodsList from "components/content/goods/GoodsList";
+  import Toast from "components/common/toast/Toast";
 
   import {getDetail,Goods,Shop,GoodsParam,getRecommend} from "network/detail";
   import { debounce } from 'common/utils'
@@ -45,7 +47,8 @@
       DetailCommentInfo,
       DetailBottomBar,
       Scroll,
-      GoodsList
+      GoodsList,
+      Toast
     },
     mixins: [backTopMixin],
     data() {
@@ -60,7 +63,9 @@
         recommends: [],
         themeTopYs: [],
         getThemeTopY: null,
-        currentIndex: 0
+        currentIndex: 0,
+        message: '',
+        show: false
 
       }
     },
@@ -100,7 +105,7 @@
         this.themeTopYs.push(this.$refs.params.$el.offsetTop);
         this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
         this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
-        console.log(this.themeTopYs)
+        // console.log(this.themeTopYs)
       },100)
     },
     methods: {
@@ -143,8 +148,16 @@
 
       //  2、将商品加入到购物车
       //   this.$store.commit('addCart',product)
-        this.$store.dispatch('addCart',product)
+        this.$store.dispatch('addCart',product).then(res => {
+          // console.log(res);
+          this.show = true
+          this.message = res
+          setTimeout(() => {
+            this.show = false
+            this.message = ''
+          },2000)
 
+        })
       }
 
     },
